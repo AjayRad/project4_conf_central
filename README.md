@@ -28,8 +28,8 @@ Implemented Session class and corresponding form. Setup sessions as a child to t
    - getFeaturedSpeaker -- returns all sessions of a featured speaker. Added caching via memcache to support this feature 
    
 ## Setup 
-1.Clone this repository. 
-2.Update the value of application in app.yaml to the app ID. You need to resigter via the App Engine admin console before this step
+1. Clone this repository. 
+2. Update the value of application in app.yaml to the app ID. You need to resigter via the App Engine admin console before this step
 3. Update the values at the top of settings.py to reflect the client IDs you have registered in the Google Developer Console.
 4. Update the value of CLIENT_ID in static/js/app.js to the Web client ID
 
