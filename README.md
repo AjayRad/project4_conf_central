@@ -2,6 +2,7 @@ Conference Central App Engine application .
 
 ## Products
 - [App Engine][1]: The product is a app engine based set of APIs that provides functionality to setup and manage conferences. It can be accessed via a web based front end but can be extended to other mobile apps. It supports user authentication via google accounts, managing conferences, sessions and user profiles. 
+- App is currently hosted at : https://prj2-hola-app.appspot.com
 
 ## APIs
 - [Google Cloud Endpoints][2]
