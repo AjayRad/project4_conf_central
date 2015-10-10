@@ -33,5 +33,6 @@ Implemented Session class and corresponding form. Setup sessions as a child to t
 3. Update the values at the top of settings.py to reflect the client IDs you have registered in the Google Developer Console.
 4. Update the value of CLIENT_ID in static/js/app.js to the Web client ID
 
+## References
 [1]: https://developers.google.com/appengine
 [2]: https://developers.google.com/appengine/docs/python/endpoints/
