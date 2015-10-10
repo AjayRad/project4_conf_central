@@ -34,5 +34,5 @@ Implemented Session class and corresponding form. Setup sessions as a child to t
 4. Update the value of CLIENT_ID in static/js/app.js to the Web client ID
 
 ## References
-[1]: https://developers.google.com/appengine
-[2]: https://developers.google.com/appengine/docs/python/endpoints/
+1. [1]: https://developers.google.com/appengine
+2. [2]: https://developers.google.com/appengine/docs/python/endpoints/
