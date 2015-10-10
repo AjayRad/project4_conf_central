@@ -782,40 +782,12 @@ class ConferenceApi(remote.Service):
         """Register user for selected conference."""
         return self._conferenceRegistration(request)
 
-
     @endpoints.method(CONF_GET_REQUEST, BooleanMessage,
                       path='conference/{websafeConferenceKey}',
                       http_method='DELETE', name='unregisterFromConference')
     def unregisterFromConference(self, request):
         """Unregister user for selected conference."""
         return self._conferenceRegistration(request, reg=False)
-
-# --- test with filters - remove later ------------------------
-
-    @endpoints.method(message_types.VoidMessage, ConferenceForms,
-                      path='filterPlayground',
-                      http_method='GET', name='filterPlayground')
-    def filterPlayground(self, request):
-        q = Conference.query()
-
-        # advanced filter building and usage
-        field = "topics"
-        operator = "="
-        value = "Medical Innovations"
-        f = ndb.query.FilterNode(field, operator, value)
-        q = q.filter(f)
-
-        # TODO
-        # add 2 filters:
-        # 1: city equals to London
-        # 2: topic equals "Medical Innovations"
-        q = q.filter(Conference.city == "Chicago")
-
-        q = q.order(Conference.name)
-
-        return ConferenceForms(
-            items=[self._copyConferenceToForm(conf, "")for conf in q]
-        )
 
 # - - - Announcements - - - - - - - - - - - - - - - - - - - -
 
