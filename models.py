@@ -111,10 +111,10 @@ class ProfileMiniForm(messages.Message):
 
 class ProfileForm(messages.Message):
     """ProfileForm -- Profile outbound form message"""
-    userId = messages.StringField(1)
-    displayName = messages.StringField(2)
-    mainEmail = messages.StringField(3)
-    teeShirtSize = messages.EnumField('TeeShirtSize', 4)
+    displayName = messages.StringField(1)
+    mainEmail = messages.StringField(2)
+    teeShirtSize = messages.EnumField('TeeShirtSize', 3)
+    conferenceKeysToAttend = messages.StringField(4, repeated=True)
 
 
 class ConferenceForms(messages.Message):
