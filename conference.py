@@ -364,7 +364,7 @@ class ConferenceApi(remote.Service):
             raise endpoints.NotFoundException(
                 'No conference found with key: %s' % request.websafeConferenceKey)
         # create ancestor query for all key matches for this conference
-        sessions = Session.query(ancestor=ndb.Key(Conference, conf.key.id()))
+        sessions = Session.query(ancestor=conf.key).fetch()
         # return set of SessionForm objects per Session
         return SessionForms(
             items=[self._copySessionToForm(session) for session in sessions]
@@ -387,8 +387,7 @@ class ConferenceApi(remote.Service):
             raise endpoints.NotFoundException(
                 'No conference found with key: %s' % request.websafeConferenceKey)
         # create ancestor query for all key matches for this conference
-        sessions = Session.query(Session.sessionType == sessionType, ancestor=ndb.Key(Conference, conf.key.id()))
-
+        sessions = Session.query(ancestor=conf.key).filter(Session.sessionType == sessionType)
         # return set of SessionForm objects per session
         return SessionForms(
             items=[self._copySessionToForm(session) for session in sessions]
@@ -411,7 +410,7 @@ class ConferenceApi(remote.Service):
             raise endpoints.NotFoundException(
                 'No conference found with key: %s' % request.websafeConferenceKey)
         # create ancestor query for all key matches for this conference
-        sessions = Session.query(Session.speaker == sessionSpeaker, ancestor=ndb.Key(Conference, conf.key.id()))
+        sessions = Session.query(ancestor=conf.key).filter(Session.speaker == sessionSpeaker)
 
         # return set of SessionForm objects per session
         return SessionForms(
@@ -455,13 +454,13 @@ class ConferenceApi(remote.Service):
         if data['startTime']:
             data['startTime'] = datetime.strptime(data['startTime'][:5], "%H:%M").time()
 
-        # make profile key from user id
-        p_key = ndb.Key(Conference, conf.key.id())
+        # make session key from conf key
+        p_key = conf.key
 
-        # allocate new conference id with Profile as parent; make conf key
-        c_id = Session.allocate_ids(size=1, parent=p_key)[0]
-        c_key = ndb.Key(Session, c_id, parent=p_key)
-        data['key'] = c_key
+        # allocate new session id with conf
+        s_id = Session.allocate_ids(size=1, parent=p_key)[0]
+        s_key = ndb.Key(Session, s_id, parent=p_key)
+        data['key'] = s_key
         data['organizerUserId'] = user_id
         del data['websafeConferenceKey']
         del data['websafeKey']
@@ -536,7 +535,7 @@ class ConferenceApi(remote.Service):
             raise endpoints.NotFoundException(
                 'No conference found with key: %s' % request.websafeConferenceKey)
 
-        sessions = Session.query(ancestor=ndb.Key(Conference, conf.key.id()))\
+        sessions = Session.query(ancestor=conf.key)\
                           .filter(Session.date <= datetime.now())\
                           .order(Session.date, Session.startTime)
 
@@ -574,7 +573,6 @@ class ConferenceApi(remote.Service):
 
         if not profile:
             profile = Profile(
-                userId=user.nickname(),
                 key=p_key,
                 displayName=user.nickname(),
                 mainEmail=user.email(),
