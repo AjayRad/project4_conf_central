@@ -15,7 +15,7 @@ Conference Central App Engine application .
     - createSession-- open to the organizer of the conference
 Implemented Session class and corresponding form. Setup sessions as a child to the conference model as sessions cannot exist without a conference (parent-child model). This makes querying for sessions via conference as ancestor. It also means that a session is "tied" to a conference ; seems like a reasonable expectation as we cannot have sessions without conferences.
 
-The model design:
+
 | Property        | Type             |
 
 |-----------------|: ---------------:|
