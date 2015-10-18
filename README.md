@@ -17,14 +17,23 @@ Implemented Session class and corresponding form. Setup sessions as a child to t
 
 The model design:
 | Property        | Type             |
+
 |-----------------|: ---------------:|
+
 | name            | string, required |
+
 | highlights      | string           |
+
 | speaker         | string, required |
+
 | duration        | integer          |
+
 | typeOfSession   | string, repeated |
+
 | date            | date             |
+
 | startTime       | time             |
+
 | organizerUserId | string           |
 
 
