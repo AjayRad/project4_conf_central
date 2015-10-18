@@ -467,15 +467,17 @@ class ConferenceApi(remote.Service):
 
         Session(**data).put()
 
-        # if speaker exists in other sections, cache the data
-        sessions = Session.query(Session.speaker == data['speaker'],
-                                 ancestor=p_key)
-        if len(list(sessions)) > 1:
-            cache_data = {}
-            cache_data['speaker'] = data['speaker']
-            cache_data['sessionNames'] = [session.name for session in sessions]
-            if not memcache.set(MEMCACHE_FEAT_SPKR_KEY, cache_data):
-                logging.error('Memcache error: set op fail.')
+        # Add to the task queue a task for setting cache
+        # Task will check if speaker is in more than one session
+        # If yes, will cache results
+
+        taskqueue.add(
+            params={
+                'confKey': p_key,
+                'speaker': data['speaker']
+            },
+            url='/tasks/set_featured_speaker'
+        )
 
         return request
 
