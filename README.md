@@ -17,7 +17,7 @@ Implemented Session class and corresponding form. Setup sessions as a child to t
 
 
 | Property        | Type             |
-|-----------------|: ---------------:|
+|-----------------|------------------|
 | name            | string, required |
 | highlights      | string           |
 | speaker         | string, required |
